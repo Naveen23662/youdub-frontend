@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouDub</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    input, select, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>YouDub — Dub YouTube Videos in Any Language</h1>
+  <input type="text" id="youtubeUrl" placeholder="Enter YouTube URL" />
+  <select id="languageSelect">
+    <option value="English">English</option>
+    <option value="Hindi">Hindi</option>
+    <option value="Telugu">Telugu</option>
+    <option value="Tamil">Tamil</option>
+    <option value="French">French</option>
+  </select>
+  <button id="dubBtn">Dub Now</button>
+
+  <script>
+    document.getElementById("dubBtn").addEventListener("click", async () => {
+      const urlInput = document.getElementById("youtubeUrl");
+      const langSelect = document.getElementById("languageSelect");
+
+      const youtubeUrl = urlInput.value.trim();
+      const targetLang = langSelect.value;
+
+      if (!youtubeUrl) {
+        alert("Please enter a YouTube URL.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("url", youtubeUrl);
+      formData.append("lang", targetLang);
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/dub", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+        alert("Dubbed: " + JSON.stringify(result));
+      } catch (error) {
+        alert("Could not reach the dubbing server.");
+      }
+    });
+  </script>
+</body>
+</html>
+
