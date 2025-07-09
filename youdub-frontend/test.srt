@@ -1,8 +1,0 @@
-1
-00:00:00,000 --> 00:00:03,000
-Hello! How are you?
-
-2
-00:00:03,500 --> 00:00:07,000
-This is a test subtitle to check dubbing.
-
